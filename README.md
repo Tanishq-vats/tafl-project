@@ -1,85 +1,25 @@
 # Turing Machine Simulator
 
-An interactive visual simulator for Turing Machines — a fundamental model of computation.
+An interactive visual simulator for Turing Machines
 
-Built with **React**, **Framer Motion**, **Tailwind CSS**, and **Firebase**.
-
----
-
-## 🚀 Deploy in 60 Seconds
-
-### Option A: Bolt.new (Zero Setup)
-1. Open [bolt.new](https://bolt.new)
-2. Drag-and-drop this entire folder into the editor
-3. The app will auto-install dependencies and start
-
-### Option B: Vercel
-1. Push this folder to a GitHub repository
-2. Go to [vercel.com](https://vercel.com) → Import Project → select your repo
-3. Set environment variables (see Firebase setup below)
-4. Click Deploy
-
-### Option C: Local Development
-```bash
-npm install
-npm run dev
-```
-
----
-
-## 🔥 Firebase Setup (for Cloud Save / Share)
-
-1. Go to [console.firebase.google.com](https://console.firebase.google.com)
-2. Create a new project (or use an existing one)
-3. Add a Web App to your project (Project Settings → Web Apps → Add App)
-4. Copy your config credentials
-5. Create a Firestore Database in **Native mode**
-6. Set Firestore Security Rules:
-
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /machines/{machineId} {
-      allow read: if true;
-      allow write: if true; // For a classroom setting — restrict in production
-    }
-  }
-}
-```
-
-7. Populate your `.env` file (copy `.env.example` → `.env`):
-```env
-VITE_FIREBASE_API_KEY=your_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=your_project_id
-VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
-VITE_FIREBASE_APP_ID=1:123456789:web:abcdef
-```
-
-> **Without Firebase**, the app works fully — only the Cloud Save/Share feature is disabled. All presets and local simulation work offline.
-
----
-
-## ✨ Features
+##  Features
 
 - **Infinite Tape** — Visual, spring-animated tape using Framer Motion. Head stays centered, tape slides beneath it.
 - **Step-by-step execution** — Use Step, Play, Pause, and Undo.
 - **Transition Table Editor** — Add rules via form UI, or switch to JSON edit mode for bulk import.
 - **Active Rule Highlighting** — The matching transition rule flashes in the table as it fires.
 - **Presets Included:**
-  - ➕ **Binary Incrementer** — Ready for your teacher to demo
-  - 🔄 Binary Inverter
-  - 🔢 Unary Addition
-  - 🪞 Palindrome Checker (Binary)
+  - **Binary Incrementer** — Ready for your teacher to demo
+  - Binary Inverter
+  -  Unary Addition
+  -  Palindrome Checker (Binary)
 - **Cloud Save / Share** — Save configurations to Firebase and share links
 - **Execution Log** — Full trace of every step taken
 - **Export Rules** — Download your transition table as JSON
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 src/
@@ -104,7 +44,7 @@ src/
 
 ---
 
-## 🧠 How Turing Machines Work
+## How Turing Machines Work
 
 A Turing Machine consists of:
 - An **infinite tape** divided into cells, each holding a symbol (or blank `B`)
@@ -113,3 +53,173 @@ A Turing Machine consists of:
 - A **transition function** (the rules table): given (current state, read symbol) → (write symbol, direction, next state)
 
 The machine halts when it enters an accept or reject state, or when no matching rule exists.
+
+
+## Theory
+
+### What is a Turing Machine?
+
+A **Turing Machine** is a theoretical mathematical model of computation invented by the British mathematician and computer scientist **Alan Mathison Turing** in **1936**. It is not a physical machine, but an abstract device that manipulates symbols on a strip of tape according to a set of rules. Despite its simplicity, a Turing Machine can simulate any algorithm that a computer can execute — making it one of the most powerful models in theoretical computer science.
+
+---
+
+### Historical Background
+
+Alan Turing introduced this concept in his landmark paper:
+In this paper, Turing addressed a fundamental question posed by mathematician David Hilbert whether every mathematical problem can be solved algorithmically. Turing proved that some problems are **undecidable**, meaning no algorithm can ever solve them. The Turing Machine was his tool for formalizing what it means for a problem to be "computable."
+
+---
+
+### Formal Definition
+
+A Turing Machine is formally defined as a **7-tuple**:
+
+```
+M = (Q, Σ, Γ, δ, q₀, q_accept, q_reject)
+```
+
+| Component | Description |
+|-----------|-------------|
+| **Q** | A finite set of **states** |
+| **Σ** | The **input alphabet** (does not include blank symbol) |
+| **Γ** | The **tape alphabet** (Σ ⊆ Γ, includes blank symbol `_` or `□`) |
+| **δ** | The **transition function**: Q × Γ → Q × Γ × {L, R} |
+| **q₀** | The **start state** (q₀ ∈ Q) |
+| **q_accept** | The **accept state** |
+| **q_reject** | The **reject state** (q_accept ≠ q_reject) |
+
+---
+
+### How It Works — Components
+
+#### 1. The Tape
+- Infinite in both directions (or one direction in some models)
+- Divided into discrete **cells**, each holding one symbol from the tape alphabet Γ
+- Initially contains the **input string**, surrounded by blank symbols (`_`)
+
+#### 2. The Read/Write Head
+- Points to one cell on the tape at a time
+- Can **read** the current symbol
+- Can **write** a new symbol to the current cell
+- Can move **Left (L)** or **Right (R)** one cell at a time
+
+#### 3. The State Register
+- Holds the **current state** of the machine
+- Starts in the **initial state q₀**
+- Transitions through states based on the transition function δ
+
+#### 4. The Transition Function (δ)
+This is the "brain" of the machine. Given the current **state** and **symbol under the head**, it tells the machine:
+1. What **symbol to write** on the tape
+2. Which **direction to move** (Left or Right)
+3. What **next state** to enter
+
+**Example Transition:**
+```
+δ(q0, '0') = (q1, '1', R)
+```
+> *"If in state q0 and reading '0', write '1', move Right, and go to state q1"*
+
+---
+
+### Types of Turing Machines
+
+| Type | Description |
+|------|-------------|
+| **Deterministic TM** | Each state-symbol pair has exactly one transition |
+| **Non-Deterministic TM** | Multiple transitions possible; accepts if any path accepts |
+| **Multi-Tape TM** | Multiple tapes with separate heads (but equivalent in power to single-tape) |
+| **Universal TM (UTM)** | Can simulate any other Turing Machine given its description |
+
+---
+
+### The Church-Turing Thesis
+
+> *"Any function that can be computed algorithmically can be computed by a Turing Machine."*
+
+This is not a provable theorem, but a widely accepted philosophical thesis. It forms the foundation of modern computation theory and suggests that Turing Machines define the **limits of what is computable**.
+
+---
+
+### Decidability Concepts
+
+| Term | Meaning |
+|------|---------|
+| **Decidable Language** | A TM always halts and accepts/rejects correctly |
+| **Recognizable Language** | A TM halts and accepts if input is in the language, may loop otherwise |
+| **Undecidable Problem** | No TM can solve it for all inputs (e.g., the Halting Problem) |
+
+#### The Halting Problem
+Turing proved that it is **impossible** to build a TM that, given any program and its input, can always determine whether that program will halt or run forever. This was the first known **undecidable problem**.
+
+---
+
+### Why Turing Machines Matter
+
+- They define the theoretical **limits of computation**
+- Every modern programming language is **Turing Complete** (can simulate a TM)
+- They are the basis for **complexity theory** (P vs NP problems)
+- Understanding TMs helps understand what computers **can and cannot** do
+- Used in **compiler theory**, **automata theory**, and **algorithm design**
+
+---
+
+### Example: Binary Increment Machine
+
+A simple TM that adds 1 to a binary number:
+
+```
+States: {q0, q_accept}
+Tape Alphabet: {0, 1, _}
+
+Transitions:
+δ(q0, 1) = (q0, 0, L)    → flip 1 to 0, carry over, move left
+δ(q0, 0) = (q_accept, 1, R)  → flip 0 to 1, done
+δ(q0, _) = (q_accept, 1, R)  → blank means leading zero, write 1
+```
+
+Input: `0 1 1`  → Output: `1 0 0`  (3 + 1 = 4 in binary)
+
+---
+
+---
+
+## Bibliography / References
+
+### Foundational Papers
+
+1. **Turing, A. M.** (1936). *On Computable Numbers, with an Application to the Entscheidungsproblem*. Proceedings of the London Mathematical Society, Series 2, 42, 230–265.
+   - 🔗 [Read Online (Archive)](https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf)
+
+2. **Church, A.** (1936). *An Unsolvable Problem of Elementary Number Theory*. American Journal of Mathematics, 58(2), 345–363.
+
+---
+
+### Textbooks
+
+3. **Sipser, M.** (2012). *Introduction to the Theory of Computation* (3rd ed.). Cengage Learning.
+   - The standard undergraduate textbook on automata and Turing Machines.
+
+4. **Hopcroft, J. E., Motwani, R., & Ullman, J. D.** (2006). *Introduction to Automata Theory, Languages, and Computation* (3rd ed.). Addison-Wesley.
+
+5. **Papadimitriou, C. H.** (1994). *Computational Complexity*. Addison-Wesley.
+
+6. **Lewis, H. R., & Papadimitriou, C. H.** (1998). *Elements of the Theory of Computation* (2nd ed.). Prentice Hall.
+
+---
+
+### Online References
+
+7. **Stanford Encyclopedia of Philosophy** — Turing Machines.
+   - 🔗 https://plato.stanford.edu/entries/turing-machine/
+
+8. **Wikipedia** — Turing Machine.
+   - 🔗 https://en.wikipedia.org/wiki/Turing_machine
+
+9. **GeeksforGeeks** — Turing Machine in Theory of Computation.
+   - 🔗 https://www.geeksforgeeks.org/turing-machine-in-toc/
+
+10. **Brilliant.org** — Turing Machines.
+    - 🔗 https://brilliant.org/wiki/turing-machines/
+
+---

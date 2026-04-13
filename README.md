@@ -2,24 +2,24 @@
 
 An interactive visual simulator for Turing Machines
 
-## ✨ Features
+##  Features
 
 - **Infinite Tape** — Visual, spring-animated tape using Framer Motion. Head stays centered, tape slides beneath it.
 - **Step-by-step execution** — Use Step, Play, Pause, and Undo.
 - **Transition Table Editor** — Add rules via form UI, or switch to JSON edit mode for bulk import.
 - **Active Rule Highlighting** — The matching transition rule flashes in the table as it fires.
 - **Presets Included:**
-  - ➕ **Binary Incrementer** — Ready for your teacher to demo
-  - 🔄 Binary Inverter
-  - 🔢 Unary Addition
-  - 🪞 Palindrome Checker (Binary)
+  - **Binary Incrementer** — Ready for your teacher to demo
+  - Binary Inverter
+  -  Unary Addition
+  -  Palindrome Checker (Binary)
 - **Cloud Save / Share** — Save configurations to Firebase and share links
 - **Execution Log** — Full trace of every step taken
 - **Export Rules** — Download your transition table as JSON
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 src/
@@ -44,7 +44,7 @@ src/
 
 ---
 
-## 🧠 How Turing Machines Work
+## How Turing Machines Work
 
 A Turing Machine consists of:
 - An **infinite tape** divided into cells, each holding a symbol (or blank `B`)
@@ -55,7 +55,7 @@ A Turing Machine consists of:
 The machine halts when it enters an accept or reject state, or when no matching rule exists.
 
 
-## 🧠 Theory
+## Theory
 
 ### What is a Turing Machine?
 
@@ -66,9 +66,7 @@ A **Turing Machine** is a theoretical mathematical model of computation invented
 ### Historical Background
 
 Alan Turing introduced this concept in his landmark paper:
-> *"On Computable Numbers, with an Application to the Entscheidungsproblem"* (1936)
-
-In this paper, Turing addressed a fundamental question posed by mathematician David Hilbert — whether every mathematical problem can be solved algorithmically. Turing proved that some problems are **undecidable**, meaning no algorithm can ever solve them. The Turing Machine was his tool for formalizing what it means for a problem to be "computable."
+In this paper, Turing addressed a fundamental question posed by mathematician David Hilbert whether every mathematical problem can be solved algorithmically. Turing proved that some problems are **undecidable**, meaning no algorithm can ever solve them. The Turing Machine was his tool for formalizing what it means for a problem to be "computable."
 
 ---
 
@@ -94,23 +92,23 @@ M = (Q, Σ, Γ, δ, q₀, q_accept, q_reject)
 
 ### How It Works — Components
 
-#### 1. 📼 The Tape
+#### 1. The Tape
 - Infinite in both directions (or one direction in some models)
 - Divided into discrete **cells**, each holding one symbol from the tape alphabet Γ
 - Initially contains the **input string**, surrounded by blank symbols (`_`)
 
-#### 2. 🔍 The Read/Write Head
+#### 2. The Read/Write Head
 - Points to one cell on the tape at a time
 - Can **read** the current symbol
 - Can **write** a new symbol to the current cell
 - Can move **Left (L)** or **Right (R)** one cell at a time
 
-#### 3. 🔄 The State Register
+#### 3. The State Register
 - Holds the **current state** of the machine
 - Starts in the **initial state q₀**
 - Transitions through states based on the transition function δ
 
-#### 4. ⚙️ The Transition Function (δ)
+#### 4. The Transition Function (δ)
 This is the "brain" of the machine. Given the current **state** and **symbol under the head**, it tells the machine:
 1. What **symbol to write** on the tape
 2. Which **direction to move** (Left or Right)
@@ -151,7 +149,7 @@ This is not a provable theorem, but a widely accepted philosophical thesis. It f
 | **Recognizable Language** | A TM halts and accepts if input is in the language, may loop otherwise |
 | **Undecidable Problem** | No TM can solve it for all inputs (e.g., the Halting Problem) |
 
-#### 🔴 The Halting Problem
+#### The Halting Problem
 Turing proved that it is **impossible** to build a TM that, given any program and its input, can always determine whether that program will halt or run forever. This was the first known **undecidable problem**.
 
 ---
@@ -180,19 +178,15 @@ Transitions:
 δ(q0, _) = (q_accept, 1, R)  → blank means leading zero, write 1
 ```
 
-Input: `0 1 1`  → Output: `1 0 0`  (3 + 1 = 4 in binary ✅)
+Input: `0 1 1`  → Output: `1 0 0`  (3 + 1 = 4 in binary)
 
 ---
 
 ---
 
-## 📖 Bibliography / References
+## Bibliography / References
 
-> **Copy-paste ready for your README**
-
----
-
-### 📘 Foundational Papers
+### Foundational Papers
 
 1. **Turing, A. M.** (1936). *On Computable Numbers, with an Application to the Entscheidungsproblem*. Proceedings of the London Mathematical Society, Series 2, 42, 230–265.
    - 🔗 [Read Online (Archive)](https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf)
@@ -201,7 +195,7 @@ Input: `0 1 1`  → Output: `1 0 0`  (3 + 1 = 4 in binary ✅)
 
 ---
 
-### 📗 Textbooks
+### Textbooks
 
 3. **Sipser, M.** (2012). *Introduction to the Theory of Computation* (3rd ed.). Cengage Learning.
    - The standard undergraduate textbook on automata and Turing Machines.
@@ -214,7 +208,7 @@ Input: `0 1 1`  → Output: `1 0 0`  (3 + 1 = 4 in binary ✅)
 
 ---
 
-### 🌐 Online References
+### Online References
 
 7. **Stanford Encyclopedia of Philosophy** — Turing Machines.
    - 🔗 https://plato.stanford.edu/entries/turing-machine/
@@ -229,21 +223,3 @@ Input: `0 1 1`  → Output: `1 0 0`  (3 + 1 = 4 in binary ✅)
     - 🔗 https://brilliant.org/wiki/turing-machines/
 
 ---
-
-### 🎥 Video Resources (Optional to Cite)
-
-11. **Computerphile** (YouTube). *Turing Machines Explained*.
-    - 🔗 https://www.youtube.com/watch?v=dNRDvLACg5Q
-
-12. **MIT OpenCourseWare** — 18.404J: Theory of Computation.
-    - 🔗 https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/
-
----
-
-### 🗒️ Citation Format Note
-
-> The above references use **APA 7th Edition** format, which is standard for computer science academic work.
-
----
-
-
